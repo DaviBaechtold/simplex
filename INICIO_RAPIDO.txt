@@ -1,0 +1,98 @@
+================================================================================
+                          INÍCIO RÁPIDO
+                       PROGRAMA SIMPLEX
+================================================================================
+
+PASSO 1: DESCOMPACTE OS ARQUIVOS
+================================================================================
+Extraia todos os arquivos para um diretório.
+
+
+PASSO 2: COMPILE
+================================================================================
+Abra um terminal no diretório dos arquivos e execute:
+
+    make
+
+Isso deve gerar o executável 'simplex' sem erros.
+
+
+PASSO 3: TESTE
+================================================================================
+Execute o exemplo fornecido:
+
+    ./simplex exemplo.csv
+
+Você deve ver a saída com iterações e resultado ótimo Z = 36.
+
+
+PASSO 4: TESTE TODOS OS CASOS
+================================================================================
+Execute o script de testes automatizados:
+
+    bash test.sh
+
+Deve mostrar 5 testes passando com sucesso.
+
+
+PASSO 5: CRIE SEU PRÓPRIO PROBLEMA
+================================================================================
+Crie um arquivo CSV seguindo o formato:
+
+    Linha 1: coeficientes da função objetivo
+    Linhas seguintes: coeficientes das restrições + RHS
+
+Exemplo (meu_problema.csv):
+    2,3
+    1,1,10
+    2,1,15
+
+Execute:
+    ./simplex meu_problema.csv
+
+
+ARQUIVOS IMPORTANTES
+================================================================================
+COMECE POR AQUI:
+    README.txt      - Visão geral completa
+    TUTORIAL.txt    - Guia detalhado de uso
+    EXEMPLOS.txt    - Explicação dos exemplos
+
+PARA A DEFESA:
+    RESUMO.txt      - Resumo executivo com perguntas esperadas
+    simplex.c       - Código fonte principal (estude este)
+    simplex.h       - Estruturas de dados
+
+
+PROBLEMAS COMUNS
+================================================================================
+ERRO: "make: command not found"
+    Instale build-essential: sudo apt install build-essential
+
+ERRO: "No such file or directory"
+    Verifique se está no diretório correto com 'ls'
+
+ERRO: Resultado diferente do esperado
+    Verifique formato do CSV (vírgulas, sem espaços)
+
+
+AJUDA
+================================================================================
+Para mais informações:
+    - Leia o TUTORIAL.txt para uso detalhado
+    - Leia o README.txt para documentação técnica
+    - Leia o RESUMO.txt para preparação da defesa
+    - Consulte EXEMPLOS.txt para entender os testes
+
+
+CONTATO RÁPIDO COM OS ARQUIVOS
+================================================================================
+simplex.c (350 linhas) - Código principal, comece por aqui
+simplex.h (40 linhas)  - Definições e estruturas
+Makefile              - Compilação automática
+*.csv                 - Exemplos de teste
+test.sh               - Testes automatizados
+
+
+BOA SORTE NA DEFESA!
+================================================================================

@@ -1,0 +1,152 @@
+================================================================================
+                    CHECKLIST DE ENTREGA
+                  PROGRAMA SIMPLEX - PUC-PR
+================================================================================
+
+ANTES DE SUBMETER NO BLACKBOARD
+================================================================================
+
+ARQUIVOS OBRIGATÓRIOS:
+[ ] simplex.c              - Código fonte principal
+[ ] simplex.h              - Headers
+[ ] Makefile               - Para compilação
+[ ] Tutorial em TXT/DOCX   - TUTORIAL.txt fornecido
+
+ARQUIVOS RECOMENDADOS:
+[ ] README.txt             - Documentação geral
+[ ] exemplo.csv            - Pelo menos um exemplo de teste
+[ ] test.sh                - Script de testes (opcional mas útil)
+
+TESTES LOCAIS:
+[ ] Compilação sem warnings (make)
+[ ] Teste com exemplo.csv funciona
+[ ] Teste de degeneração detecta corretamente
+[ ] Teste de inviabilidade detecta corretamente
+[ ] Teste sem fronteira detecta corretamente
+[ ] Executável roda sem segfault
+
+DOCUMENTAÇÃO:
+[ ] Tutorial explica como compilar
+[ ] Tutorial explica formato do CSV
+[ ] Tutorial dá exemplo de uso
+[ ] Código tem comentários nas partes principais
+
+CONHECIMENTO PARA A DEFESA:
+[ ] Sei explicar como funciona o pivoteamento
+[ ] Sei explicar como detecto degeneração
+[ ] Sei explicar como detecto inviabilidade
+[ ] Sei explicar como detecto unbounded
+[ ] Sei explicar a estrutura do tableau
+[ ] Sei fazer modificações simples no código
+
+
+VERIFICAÇÃO TÉCNICA
+================================================================================
+
+REQUISITOS OBRIGATÓRIOS IMPLEMENTADOS:
+[✓] 1. Maximização
+[✓] 2. Interface com usuário
+[✓] 3. Informar número de iterações
+[✓] 4. Identificar Z ótimo e variáveis básicas
+[✓] 5. Apontar degeneração
+[✓] 6. Indicar inviabilidade
+[✓] 7. Indicar problema sem fronteira
+
+COMPILAÇÃO:
+[ ] Compila com gcc sem erros
+[ ] Compila sem warnings com -Wall -Wextra
+[ ] Executável gerado funciona
+
+FUNCIONALIDADE:
+[ ] Lê arquivo CSV corretamente
+[ ] Monta tableau inicial correto
+[ ] Executa iterações do SIMPLEX
+[ ] Exibe tableau de cada iteração
+[ ] Detecta otimalidade
+[ ] Detecta casos especiais
+[ ] Exibe solução final
+
+
+PREPARAÇÃO PARA A DEFESA
+================================================================================
+
+REVISÃO DO CÓDIGO:
+[ ] Revisei todas as funções principais
+[ ] Entendo o algoritmo de pivoteamento
+[ ] Sei onde estão as detecções de casos especiais
+[ ] Consigo explicar as estruturas de dados
+
+PERGUNTAS PROVÁVEIS:
+[ ] Como funciona encontrar_coluna_pivoteante()?
+[ ] Como funciona encontrar_linha_pivoteante()?
+[ ] Como funciona pivotar()?
+[ ] Como você detecta degeneração?
+[ ] Como você detecta inviabilidade?
+[ ] Como você detecta problema sem fronteira?
+[ ] O que é EPSILON e por que você usa?
+[ ] Como você identifica variáveis básicas?
+
+MODIFICAÇÕES QUE POSSO FAZER:
+[ ] Alterar EPSILON
+[ ] Alterar limite de iterações
+[ ] Adicionar mais prints de debug
+[ ] Modificar formato de saída
+[ ] Explicar como adicionaria minimização
+
+
+ARQUIVO FINAL PARA SUBMISSÃO
+================================================================================
+
+OPÇÃO 1 - ARQUIVOS SEPARADOS:
+Submeta todos os arquivos individualmente no Blackboard.
+
+OPÇÃO 2 - ZIP:
+Crie um arquivo .zip contendo:
+    simplex.c
+    simplex.h
+    Makefile
+    TUTORIAL.txt
+    exemplo.csv
+    (outros exemplos opcionais)
+
+Para criar o zip:
+    zip simplex_trabalho.zip simplex.c simplex.h Makefile TUTORIAL.txt exemplo*.csv
+
+NOME DO ARQUIVO:
+    Sugestão: SEU_NOME_SIMPLEX.zip
+    ou conforme indicado pelo professor
+
+
+ÚLTIMAS VERIFICAÇÕES
+================================================================================
+
+[ ] Verifiquei o prazo de entrega no Blackboard
+[ ] Testei o código uma última vez
+[ ] Revisei o tutorial para clareza
+[ ] Preparei respostas para perguntas da defesa
+[ ] Tenho backup dos arquivos
+[ ] Sei onde está cada funcionalidade no código
+
+
+DURANTE A DEFESA
+================================================================================
+
+SEJA CAPAZ DE:
+[ ] Compilar o código na frente do professor
+[ ] Executar com um exemplo
+[ ] Explicar uma função escolhida pelo professor
+[ ] Fazer uma modificação simples pedida
+[ ] Responder perguntas conceituais sobre SIMPLEX
+[ ] Demonstrar conhecimento dos casos especiais
+
+
+BOA SORTE!
+================================================================================
+
+Lembre-se: o professor quer ver que você ENTENDEU o algoritmo SIMPLEX,
+não apenas copiou código. Estude o código, entenda cada parte, e esteja
+preparado para explicar e modificar.
+
+"Small is beautiful!" - Leopold Kohr
+
+================================================================================

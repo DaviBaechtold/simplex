@@ -1,0 +1,198 @@
+================================================================================
+                    ÍNDICE DE ARQUIVOS
+                  PROGRAMA SIMPLEX - PUC-PR
+================================================================================
+
+ARQUIVOS DO PROJETO (14 arquivos, 51 KB total)
+================================================================================
+
+
+CÓDIGO FONTE (3 arquivos)
+--------------------------------------------------------------------------------
+simplex.c              (10 KB, 344 linhas)
+    Implementação completa do algoritmo SIMPLEX.
+    Funções principais: ler_problema_csv, resolver_simplex, pivotar,
+    encontrar_coluna_pivoteante, encontrar_linha_pivoteante.
+
+simplex.h              (1.2 KB, 46 linhas)
+    Headers, estruturas de dados e declarações de funções.
+    Define: struct Tableau, enum Status, constantes.
+
+Makefile               (279 bytes)
+    Compilação automatizada.
+    Comandos: make, make clean, make test
+
+
+DOCUMENTAÇÃO (6 arquivos)
+--------------------------------------------------------------------------------
+INICIO_RAPIDO.txt      (3.0 KB) ★ COMECE AQUI
+    Guia rápido em 5 passos para começar a usar o programa.
+    Ideal para primeiro contato.
+
+README.txt             (4.6 KB)
+    Visão geral completa do projeto.
+    Estrutura, algoritmo, limitações, detecção de casos especiais.
+
+TUTORIAL.txt           (6.1 KB)
+    Guia completo de uso passo a passo.
+    Formato CSV, execução, interpretação de saída, resolução de problemas.
+
+EXEMPLOS.txt           (8.0 KB)
+    Documentação detalhada de cada exemplo de teste.
+    Formulação matemática, interpretação, resultados esperados.
+
+RESUMO.txt             (7.6 KB)
+    Resumo executivo do projeto.
+    Requisitos implementados, preparação para defesa, perguntas esperadas.
+
+CHECKLIST.txt          (4.8 KB)
+    Checklist de entrega e preparação para defesa.
+    Verificações técnicas, perguntas prováveis, últimas verificações.
+
+
+EXEMPLOS DE TESTE (4 arquivos CSV)
+--------------------------------------------------------------------------------
+exemplo.csv            (24 bytes)
+    Problema normal que encontra solução ótima.
+    Max Z = 3x₁ + 5x₂, resultado: Z = 36, x₁ = 2, x₂ = 6
+
+exemplo_sem_fronteira.csv  (11 bytes)
+    Teste de detecção de problema unbounded.
+    Solução pode crescer indefinidamente.
+
+exemplo_inviavel.csv   (12 bytes)
+    Teste de detecção de inviabilidade.
+    RHS negativo no tableau inicial.
+
+exemplo_degenerado.csv (17 bytes)
+    Teste de detecção de degeneração.
+    Empate nas razões durante escolha do pivô.
+
+
+TESTES (1 arquivo)
+--------------------------------------------------------------------------------
+test.sh                (1.3 KB)
+    Script de testes automatizados.
+    Executa os 4 exemplos e verifica resultados.
+    Uso: bash test.sh
+
+
+COMO USAR ESTE ÍNDICE
+================================================================================
+
+PRIMEIRA VEZ:
+1. Leia INICIO_RAPIDO.txt
+2. Compile e teste com exemplo.csv
+3. Leia README.txt para entender a estrutura
+
+APRENDIZADO:
+1. Estude TUTORIAL.txt para uso completo
+2. Leia EXEMPLOS.txt para entender os testes
+3. Analise simplex.c linha por linha
+
+PREPARAÇÃO PARA DEFESA:
+1. Leia RESUMO.txt
+2. Revise CHECKLIST.txt
+3. Estude as funções principais em simplex.c
+4. Pratique modificações simples
+
+DURANTE A IMPLEMENTAÇÃO:
+1. README.txt como referência técnica
+2. simplex.h para estruturas de dados
+3. simplex.c para algoritmo
+
+
+FLUXO RECOMENDADO DE LEITURA
+================================================================================
+
+PARA USO IMEDIATO:
+INICIO_RAPIDO.txt → compile → execute → funcionou? → continue
+
+PARA ENTENDIMENTO:
+README.txt → TUTORIAL.txt → EXEMPLOS.txt → código fonte
+
+PARA DEFESA:
+RESUMO.txt → CHECKLIST.txt → revisão do código → testes práticos
+
+
+ESTATÍSTICAS DO PROJETO
+================================================================================
+
+Linhas de código:        390 (344 em simplex.c, 46 em simplex.h)
+Funções implementadas:   10 funções principais
+Arquivos de teste:       4 casos (ótimo, unbounded, inviável, degenerado)
+Documentação:            7 arquivos (35 KB de documentação)
+Tamanho total:           51 KB
+
+
+ARQUIVOS MÍNIMOS PARA ENTREGA
+================================================================================
+
+OBRIGATÓRIOS:
+- simplex.c
+- simplex.h
+- Makefile
+- TUTORIAL.txt (ou equivalente em DOCX)
+
+RECOMENDADOS:
+- README.txt
+- exemplo.csv (pelo menos um)
+- test.sh
+
+
+ARQUIVOS PARA DIFERENTES FINALIDADES
+================================================================================
+
+SE VOCÊ QUER...                     LEIA...
+-------------------------------------------
+Começar rápido                      INICIO_RAPIDO.txt
+Entender o projeto completo         README.txt
+Aprender a usar                     TUTORIAL.txt
+Entender os exemplos                EXEMPLOS.txt
+Preparar para defesa                RESUMO.txt + CHECKLIST.txt
+Ver o código                        simplex.c + simplex.h
+Testar automaticamente              test.sh
+
+
+NAVEGAÇÃO RÁPIDA POR TÓPICO
+================================================================================
+
+COMPILAÇÃO:
+    INICIO_RAPIDO.txt → Passo 2
+    TUTORIAL.txt → Seção 1
+    Makefile
+
+FORMATO CSV:
+    TUTORIAL.txt → Seção 2
+    EXEMPLOS.txt → todos os exemplos
+    README.txt → seção "Formato de Entrada"
+
+CASOS ESPECIAIS:
+    README.txt → "Detecção de Casos Especiais"
+    EXEMPLOS.txt → exemplos específicos
+    simplex.c → funções verificar_degeneracao, etc.
+
+DEFESA:
+    RESUMO.txt → "Defesa do Trabalho"
+    CHECKLIST.txt → "Preparação para Defesa"
+
+MODIFICAÇÕES:
+    RESUMO.txt → "Possíveis Modificações"
+    simplex.c → código fonte
+
+
+ÚLTIMAS DICAS
+================================================================================
+
+1. Sempre comece pelo INICIO_RAPIDO.txt
+2. Use o test.sh para validação rápida
+3. Estude o simplex.c com atenção antes da defesa
+4. Leia o CHECKLIST.txt antes de submeter
+5. Tenha o RESUMO.txt em mãos durante a defesa
+
+
+================================================================================
+PROJETO CRIADO EM: 16/11/2025
+PARA: Otimização de Sistemas Lineares - PUC-PR
+PROFESSOR: Me. Holisses Bellon
+================================================================================

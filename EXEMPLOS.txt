@@ -1,0 +1,267 @@
+================================================================================
+              EXEMPLOS DE TESTE - DOCUMENTAÇÃO DETALHADA
+                    Programa SIMPLEX - PUC-PR
+================================================================================
+
+Este arquivo descreve em detalhes cada um dos exemplos de teste fornecidos
+com o programa SIMPLEX, incluindo a formulação matemática, o arquivo CSV
+correspondente e o resultado esperado.
+
+
+================================================================================
+EXEMPLO 1: exemplo.csv - PROBLEMA NORMAL (ÓTIMO)
+================================================================================
+
+FORMULAÇÃO MATEMÁTICA:
+    Maximizar Z = 3x₁ + 5x₂
+    
+    Sujeito a:
+        x₁         ≤ 4
+        2x₂        ≤ 12
+        3x₁ + 2x₂  ≤ 18
+        x₁, x₂     ≥ 0
+
+ARQUIVO CSV:
+    3,5
+    1,0,4
+    0,2,12
+    3,2,18
+
+INTERPRETAÇÃO DO CSV:
+    Linha 1: [3, 5]           → coeficientes de Z
+    Linha 2: [1, 0, 4]        → restrição: 1x₁ + 0x₂ ≤ 4
+    Linha 3: [0, 2, 12]       → restrição: 0x₁ + 2x₂ ≤ 12
+    Linha 4: [3, 2, 18]       → restrição: 3x₁ + 2x₂ ≤ 18
+
+RESULTADO ESPERADO:
+    Status: ÓTIMO ENCONTRADO
+    Valor de Z: 36.0000
+    x₁ = 2.0000
+    x₂ = 6.0000
+    
+INTERPRETAÇÃO:
+    Solução ótima encontrada no vértice (2, 6)
+    Valor máximo da função objetivo: Z = 3(2) + 5(6) = 36
+    
+ITERAÇÕES:
+    - Iteração 0: Tableau inicial
+    - Iteração 1: x₂ entra na base (coluna 2), f₂ sai (linha 2)
+    - Iteração 2: x₁ entra na base (coluna 1), f₃ sai (linha 3)
+    - Resultado: Ótimo encontrado
+
+
+================================================================================
+EXEMPLO 2: exemplo_sem_fronteira.csv - PROBLEMA UNBOUNDED
+================================================================================
+
+FORMULAÇÃO MATEMÁTICA:
+    Maximizar Z = x₁ + x₂
+    
+    Sujeito a:
+        -x₁ + x₂ ≤ 2
+        x₁, x₂   ≥ 0
+
+ARQUIVO CSV:
+    1,1
+    -1,1,2
+
+INTERPRETAÇÃO DO CSV:
+    Linha 1: [1, 1]           → coeficientes de Z
+    Linha 2: [-1, 1, 2]       → restrição: -x₁ + x₂ ≤ 2
+
+RESULTADO ESPERADO:
+    Status: PROBLEMA SEM FRONTEIRA
+    
+INTERPRETAÇÃO:
+    A restrição permite que x₁ cresça indefinidamente
+    Como Z = x₁ + x₂ e x₁ pode crescer sem limite,
+    a função objetivo pode ser maximizada indefinidamente
+    
+    Graficamente: a região viável é ilimitada na direção de x₁
+    
+DETECÇÃO:
+    Durante a iteração 0, ao tentar escolher a linha pivoteante
+    para a coluna x₁, não existem razões positivas válidas,
+    indicando que o problema é sem fronteira.
+
+
+================================================================================
+EXEMPLO 3: exemplo_inviavel.csv - PROBLEMA INVIÁVEL
+================================================================================
+
+FORMULAÇÃO MATEMÁTICA:
+    Maximizar Z = x₁ + x₂
+    
+    Sujeito a:
+        x₁ - x₂  ≤ -1
+        x₁, x₂   ≥ 0
+
+ARQUIVO CSV:
+    1,1
+    1,-1,-1
+
+INTERPRETAÇÃO DO CSV:
+    Linha 1: [1, 1]           → coeficientes de Z
+    Linha 2: [1, -1, -1]      → restrição: x₁ - x₂ ≤ -1
+
+RESULTADO ESPERADO:
+    Status: PROBLEMA INVIÁVEL
+    
+INTERPRETAÇÃO:
+    A restrição x₁ - x₂ ≤ -1 pode ser reescrita como:
+    x₁ ≤ x₂ - 1
+    
+    Mas também temos x₁ ≥ 0 e x₂ ≥ 0 (não-negatividade).
+    
+    Para satisfazer x₁ ≤ x₂ - 1, precisamos de x₂ ≥ x₁ + 1.
+    Com x₁ = 0 (mínimo), precisamos x₂ ≥ 1.
+    
+    Porém, o RHS negativo (-1) no tableau inicial já indica
+    inviabilidade direta, pois não podemos ter uma variável
+    de folga negativa na solução básica inicial.
+    
+DETECÇÃO:
+    O programa detecta RHS negativo na linha 1 durante a
+    verificação inicial, antes mesmo de qualquer pivoteamento.
+    Isso indica que a solução básica inicial é inviável.
+
+
+================================================================================
+EXEMPLO 4: exemplo_degenerado.csv - PROBLEMA COM DEGENERAÇÃO
+================================================================================
+
+FORMULAÇÃO MATEMÁTICA:
+    Maximizar Z = x₁ + x₂
+    
+    Sujeito a:
+        x₁ + x₂  ≤ 1
+        x₁ - x₂  ≤ 0
+        x₁, x₂   ≥ 0
+
+ARQUIVO CSV:
+    1,1
+    1,1,1
+    1,-1,0
+
+INTERPRETAÇÃO DO CSV:
+    Linha 1: [1, 1]           → coeficientes de Z
+    Linha 2: [1, 1, 1]        → restrição: x₁ + x₂ ≤ 1
+    Linha 3: [1, -1, 0]       → restrição: x₁ - x₂ ≤ 0
+
+RESULTADO ESPERADO:
+    Status: ÓTIMO ENCONTRADO
+    ATENÇÃO: Problema apresenta DEGENERAÇÃO
+    Valor de Z: 1.0000
+    x₁ = 0.5000
+    x₂ = 0.5000
+    
+INTERPRETAÇÃO:
+    A degeneração é detectada quando:
+    1. Há empate nas razões mínimas durante escolha do pivô
+    2. Uma variável básica tem valor zero ou muito próximo
+    
+    Neste exemplo, a segunda restrição tem RHS = 0,
+    o que causa empate nas razões e indica degeneração.
+    
+IMPLICAÇÕES DA DEGENERAÇÃO:
+    - Possibilidade de ciclagem (loop infinito)
+    - Múltiplas iterações sem mudança no valor de Z
+    - O programa detecta mas continua até encontrar solução
+    
+NOTA TÉCNICA:
+    O programa usa EPSILON = 1e-10 para detectar valores
+    próximos de zero, evitando problemas de arredondamento.
+
+
+================================================================================
+CRIANDO SEUS PRÓPRIOS EXEMPLOS
+================================================================================
+
+REGRAS PARA ARQUIVO CSV:
+
+1. Primeira linha: coeficientes da função objetivo
+   - Um valor para cada variável de decisão
+   - Separados por vírgula, sem espaços
+
+2. Linhas seguintes: uma para cada restrição
+   - Coeficientes das variáveis de decisão
+   - Último valor é o RHS (lado direito da inequação)
+   - Separados por vírgula, sem espaços
+
+3. Todas as restrições devem ser do tipo ≤
+
+4. Todas as variáveis são não-negativas (≥ 0)
+
+EXEMPLO DE CRIAÇÃO:
+
+Problema:
+    Maximizar Z = 2x₁ + 3x₂ + x₃
+    Sujeito a:
+        x₁ + x₂ + x₃ ≤ 10
+        2x₁ + x₂     ≤ 15
+        x₃           ≤ 5
+
+CSV resultante (meu_problema.csv):
+    2,3,1
+    1,1,1,10
+    2,1,0,15
+    0,0,1,5
+
+Executar:
+    ./simplex meu_problema.csv
+
+
+================================================================================
+CONVERSÃO DE TIPOS DE RESTRIÇÃO
+================================================================================
+
+RESTRIÇÃO ≥ (maior ou igual):
+    Multiplicar toda a restrição por -1
+    
+    Exemplo: 2x₁ + x₂ ≥ 4  →  -2x₁ - x₂ ≤ -4
+    CSV: -2,-1,-4
+
+RESTRIÇÃO = (igualdade):
+    Transformar em duas restrições:
+    
+    Exemplo: x₁ + x₂ = 3
+    →  x₁ + x₂ ≤ 3  E  x₁ + x₂ ≥ 3
+    →  x₁ + x₂ ≤ 3  E  -x₁ - x₂ ≤ -3
+    
+    CSV:
+    1,1,3
+    -1,-1,-3
+
+VARIÁVEL IRRESTRITA EM SINAL (opcional para implementação futura):
+    Substituir x por x⁺ - x⁻, onde x⁺, x⁻ ≥ 0
+
+
+================================================================================
+VALIDAÇÃO DE RESULTADOS
+================================================================================
+
+Para validar manualmente os resultados:
+
+1. Substitua os valores das variáveis na função objetivo
+2. Verifique se todas as restrições são satisfeitas
+3. Tente valores próximos para ver se Z melhora
+
+Exemplo (exemplo.csv):
+    Solução: x₁ = 2, x₂ = 6
+    
+    Z = 3(2) + 5(6) = 36 ✓
+    
+    Restrições:
+    - x₁ ≤ 4:  2 ≤ 4 ✓
+    - 2x₂ ≤ 12:  2(6) = 12 ≤ 12 ✓
+    - 3x₁ + 2x₂ ≤ 18:  3(2) + 2(6) = 18 ≤ 18 ✓
+    
+    Teste de otimalidade:
+    - Aumentar x₁: viola 3x₁ + 2x₂ ≤ 18
+    - Aumentar x₂: viola 2x₂ ≤ 12
+    - Logo, solução é ótima ✓
+
+
+================================================================================
+FIM DA DOCUMENTAÇÃO DE EXEMPLOS
+================================================================================

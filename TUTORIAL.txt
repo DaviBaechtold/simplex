@@ -1,0 +1,206 @@
+================================================================================
+                    TUTORIAL - PROGRAMA SIMPLEX
+                    Otimização de Sistemas Lineares
+                    PUC-PR - Engenharia de Computação
+================================================================================
+
+1. COMPILAÇÃO
+================================================================================
+
+No terminal, navegue até o diretório com os arquivos e execute:
+
+    make
+
+Isso irá compilar o programa e gerar o executável 'simplex'.
+
+Para limpar os arquivos compilados:
+
+    make clean
+
+
+2. FORMATO DO ARQUIVO DE ENTRADA (CSV)
+================================================================================
+
+O arquivo CSV deve seguir este formato:
+
+    Linha 1: Coeficientes da função objetivo (separados por vírgula)
+    Linhas seguintes: Coeficientes das restrições + valor RHS no final
+
+IMPORTANTE: 
+- Todas as restrições devem estar na forma <= (menor ou igual)
+- O programa assume que todas as variáveis são >= 0
+- O último valor de cada linha de restrição é o lado direito (RHS)
+
+
+3. EXEMPLO DE USO
+================================================================================
+
+Problema:
+    Maximizar Z = 3x1 + 5x2
+    Sujeito a:
+        x1 <= 4
+        2x2 <= 12
+        3x1 + 2x2 <= 18
+        x1, x2 >= 0
+
+Arquivo CSV (exemplo.csv):
+    3,5
+    1,0,4
+    0,2,12
+    3,2,18
+
+Executar:
+    ./simplex exemplo.csv
+
+
+4. EXECUÇÃO
+================================================================================
+
+Sintaxe:
+    ./simplex <arquivo.csv>
+
+Exemplos fornecidos:
+    ./simplex exemplo.csv              # Problema normal
+    ./simplex exemplo_inviavel.csv     # Teste de inviabilidade
+    ./simplex exemplo_sem_fronteira.csv # Teste sem fronteira
+    ./simplex exemplo_degenerado.csv   # Teste de degeneração
+
+
+5. SAÍDA DO PROGRAMA
+================================================================================
+
+O programa exibe:
+
+a) Tableau inicial e de cada iteração
+   - Linha Z: função objetivo
+   - Linhas R: restrições
+   - Colunas x: variáveis originais
+   - Colunas f: variáveis de folga
+   - Coluna RHS: lado direito
+
+b) Informação de pivoteamento em cada iteração
+
+c) Resultado final:
+   - Status: ÓTIMO, INVIÁVEL ou SEM FRONTEIRA
+   - Aviso de degeneração (se aplicável)
+   - Número de iterações
+   - Valor ótimo de Z
+   - Valores das variáveis básicas e não-básicas
+
+
+6. DETECÇÃO DE CASOS ESPECIAIS
+================================================================================
+
+DEGENERAÇÃO:
+- Detectada quando uma variável básica tem valor zero
+- Ou quando há empate na escolha da linha pivoteante (razões iguais)
+- O programa continua e reporta na solução final
+
+INVIABILIDADE:
+- Detectada quando aparece RHS negativo durante as iterações
+- O programa para e informa o problema
+
+SEM FRONTEIRA (UNBOUNDED):
+- Detectada quando uma coluna pivoteante não tem razões positivas
+- Significa que a função objetivo pode crescer indefinidamente
+- O programa para e informa o problema
+
+
+7. ESTRUTURA DO CÓDIGO
+================================================================================
+
+simplex.h
+    - Definições de estruturas de dados
+    - Declarações de funções
+    - Constantes e enumerações
+
+simplex.c
+    - Implementação do algoritmo SIMPLEX
+    - Funções principais:
+        * ler_problema_csv()     : lê arquivo de entrada
+        * inicializar_tableau()  : monta tableau inicial
+        * resolver_simplex()     : algoritmo principal
+        * encontrar_coluna_pivoteante() : regra de entrada
+        * encontrar_linha_pivoteante()  : regra de saída
+        * pivotar()              : operações de pivoteamento
+        * verificar_degeneracao(): detecta degeneração
+        * imprimir_solucao()     : exibe resultado
+
+
+8. LIMITAÇÕES
+================================================================================
+
+- Número máximo de variáveis: 100
+- Número máximo de restrições: 100
+- Apenas problemas de maximização (requisito obrigatório)
+- Apenas restrições do tipo <=
+- Variáveis não-negativas
+
+
+9. EXEMPLO COMPLETO DE EXECUÇÃO
+================================================================================
+
+$ ./simplex exemplo.csv
+
+========== INICIANDO SIMPLEX ==========
+
+=== ITERAÇÃO 0 ===
+     x1     x2     f1     f2     f3     RHS    
+Z      -3.00   -5.00    0.00    0.00    0.00    0.00 
+R1      1.00    0.00    1.00    0.00    0.00    4.00 
+R2      0.00    2.00    0.00    1.00    0.00   12.00 
+R3      3.00    2.00    0.00    0.00    1.00   18.00 
+
+Pivô: Linha 2, Coluna 2 (x2)
+
+=== ITERAÇÃO 1 ===
+     x1     x2     f1     f2     f3     RHS    
+Z      -3.00    0.00    0.00    2.50    0.00   30.00 
+R1      1.00    0.00    1.00    0.00    0.00    4.00 
+R2      0.00    1.00    0.00    0.50    0.00    6.00 
+R3      3.00    0.00    0.00   -1.00    1.00    6.00 
+
+Pivô: Linha 3, Coluna 1 (x1)
+
+=== ITERAÇÃO 2 ===
+     x1     x2     f1     f2     f3     RHS    
+Z       0.00    0.00    0.00    1.50    1.00   36.00 
+R1      0.00    0.00    1.00    0.33   -0.33    2.00 
+R2      0.00    1.00    0.00    0.50    0.00    6.00 
+R3      1.00    0.00    0.00   -0.33    0.33    2.00 
+
+========== RESULTADO ==========
+Status: ÓTIMO ENCONTRADO
+
+Número de iterações: 2
+
+Valor ótimo de Z: 36.0000
+
+Variáveis básicas:
+  x1 = 2.0000
+  x2 = 6.0000
+  f1 = 2.0000
+
+Variáveis não-básicas (valor = 0):
+  (nenhuma exibida pois x1 e x2 são básicas)
+
+
+10. RESOLUÇÃO DE PROBLEMAS
+================================================================================
+
+ERRO: "Não foi possível abrir o arquivo"
+    - Verifique se o arquivo existe no diretório
+    - Verifique permissões de leitura
+
+ERRO: Resultado incorreto
+    - Verifique o formato do CSV (vírgulas, sem espaços extras)
+    - Confirme que o problema está na forma padrão (<=, variáveis >= 0)
+
+Dúvidas adicionais:
+    - Consulte o código-fonte (comentários explicativos)
+    - Teste com os exemplos fornecidos primeiro
+
+
+================================================================================
+FIM DO TUTORIAL
+================================================================================
