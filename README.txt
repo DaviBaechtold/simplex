@@ -113,36 +113,4 @@ exemplo_degenerado.csv:
     Problema com degeneração
     Resultado esperado: STATUS_OTIMO com aviso de degeneração
 
-
-PARA ADICIONAR MINIMIZAÇÃO (OPCIONAL)
-================================================================================
-
-Método das duas fases:
-1. Fase I: Adicionar variáveis artificiais
-2. Minimizar soma das artificiais
-3. Se resultado = 0, problema é viável
-4. Fase II: Resolver problema original
-5. Multiplicar coeficientes de Z por -1 antes de resolver
-6. Multiplicar resultado final por -1
-
-NÃO use M grande (conforme especificação do professor).
-
-
-AUTORIA E DEFESA
-================================================================================
-
-Durante a defesa, você deve ser capaz de:
-1. Explicar cada função do código
-2. Fazer modificações pontuais
-3. Demonstrar compreensão do algoritmo SIMPLEX
-4. Responder questões sobre casos especiais
-
-
-CONTATO/DÚVIDAS
-================================================================================
-
-Leia o TUTORIAL.txt para informações detalhadas de uso.
-Consulte os comentários no código para detalhes de implementação.
-
-
 ================================================================================
